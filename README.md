@@ -1,6 +1,8 @@
 # Udemy-Analysis-System
 Udemy backend analysis system including courses, instructors, reviews.
-The needed python libraries are in `requirement.txt`
+
+The needed python libraries are in `requirements.txt`
+All dataset are in `data` folder.
 
 
 ## Introduction
