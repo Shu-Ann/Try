@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+{% block title %}
+Review List
+{% endblock %}
+
+<!-- -------------------------------------------------------------------- -->
+
+{% block css %}
+
+{% endblock %}
+
+<!-- -------------------------------------------------------------------- -->
+
+{% block content%}
+<div class="container">
+    <h1>Review Analysis</h1>
+    <h3>Number of Reviews: {{total_num}}</h3>
+    <br/>
+    <br/>
+    <div>
+        <button class="btn btn-primary w-25" id="process-btn">Process Review Data</button>&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-primary w-25" id="generate-analysis-btn" href="/review-analysis" target="_blank">Review Analysis Figure</a>
+
+    </div>
+    <br/>
+    <br/>
+    <div>
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <tr style="background-color: #bcbebf;">
+                <th>#</th>
+                <th>Review ID</th>
+                <th>Review Rating</th>
+                <th>Review Created Time</th>
+                <th>Review Modified Time</th>
+                <th>Review User</th>
+                <th>Course ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for review in one_page_review_list %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{review.id}}</td>
+                <td>{{review.rating}}</td>
+
+                <td>{{review.created}}</td>
+                <td>{{review.modified}}</td>
+                <td>{{review.user_title}}</td>
+                <td><a href="/course-details?id={{review.course_id}}">{{review.course_id}}</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <div>
+        {% if total_pages != 0 %}
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="/review-list?page=1">Start</a></li>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+
+                {% for num in page_num_list %}
+                {% if num == current_page %}
+                <li class="page-item active"><a class="page-link" href="/review-list?page={{num}}">{{num}}</a></li>
+                {% else %}
+                <li class="page-item "><a class="page-link" href="/review-list?page={{num}}">{{num}}</a></li>
+                {% endif %}
+                {% endfor %}
+
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+                <li class="page-item"><a class="page-link" href="/review-list?page={{total_pages}}">End</a></li>
+
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+{% endblock%}
+
+<!-- -------------------------------------------------------------------- -->
+
+{% block js %}
+<script>
+    var process_review_ops = {
+        init: function () {
+            this.eventBind();
+        },
+        eventBind: function () {
+            $("#process-btn").click(function () {
+                var btn_target = $(this);
+                if (btn_target.hasClass("disabled")) {
+                    alert("processing, please do not click multiple times");
+                    return;
+                }
+
+                btn_target.addClass("disabled");
+                $.ajax({
+                    url: "/process-review",
+                    type: "POST",
+                    data: {
+                        process: "process-start"
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res)
+                        btn_target.removeClass("disabled");
+
+                        if (res.code == 200) {
+                            window.location.href = "/review-list";
+                        } else {
+                            alert(res.msg);
+                        }
+                    }
+                });
+            });
+        }
+    };
+
+    $(document).ready(function () {
+        process_review_ops.init();
+
+    });
+</script>
+{% endblock %}
