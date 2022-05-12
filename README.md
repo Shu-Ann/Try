@@ -1,8 +1,11 @@
 # Udemy-Analysis-System
 Udemy backend analysis system including courses, instructors, reviews.
+Users can creates their own account to login the system and check out all the courses, instructors, reviews with statistical graph from Udemy.
+Crewling by `Python`
+
 
 The needed python libraries are in `requirements.txt`
-All dataset are in `data` folder.
+All datasets are in `data` folder.
 
 
 ## Introduction
