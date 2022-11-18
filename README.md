@@ -44,7 +44,7 @@ Or access to Course list, Instructor list and Review list pages.
 
 <img width="1317" alt="截圖 2022-05-11 下午5 31 04" src="https://user-images.githubusercontent.com/105199493/167793724-4f04503b-3487-47e5-a88b-ca31493c6c93.png">
 
-There are 20 courses displayed in each page, users can move to othee page by the page bar below.
+There are 20 courses displayed in each page, users can move to other page by the page bar below.
 
 <img width="510" alt="截圖 2022-05-11 下午5 40 33" src="https://user-images.githubusercontent.com/105199493/167795292-59f39106-6b72-4676-9ebb-56df29fec07a.png">
 
